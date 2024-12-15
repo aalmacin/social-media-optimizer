@@ -30,3 +30,5 @@ dist-ssr
 # Lock files
 package-lock.json
 >>>>>>> 1d432cc (Ignore package-lock.json)
+
+*storybook.log
