@@ -6,6 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+*storybook.log
 
 node_modules
 dist
@@ -23,12 +24,9 @@ dist-ssr
 *.sln
 *.sw?
 
-<<<<<<< HEAD
+
 # Local Netlify folder
 .netlify
-=======
+
 # Lock files
 package-lock.json
->>>>>>> 1d432cc (Ignore package-lock.json)
-
-*storybook.log
