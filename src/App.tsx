@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
+import { Button } from './app/components/Button/Button';
 import './App.css'
-
 function App() {
   const [count, setCount] = useState(0);
 
@@ -22,6 +22,17 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
+
+        {/* Add the Upload Image button here */}
+        <Button
+          primary={false}
+          label="Upload Image Here"
+          backgroundColor="#dde7ec"
+          size="medium"
+          onClick={() => {
+            console.log('Upload button clicked');
+          }}
+        />
 
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
