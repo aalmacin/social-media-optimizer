@@ -18,7 +18,11 @@
   ],
   "include": [
     "src",
-    ".storybook"
+    ".storybook/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
   ],
   "types": [
     "@storybook/react"
