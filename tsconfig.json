@@ -9,8 +9,18 @@
     "allowSyntheticDefaultImports": true
   },
   "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    }
   ],
-  "include": ["src", ".storybook"]
+  "include": [
+    "src",
+    ".storybook"
+  ],
+  "types": [
+    "@storybook/react"
+  ]
 }
