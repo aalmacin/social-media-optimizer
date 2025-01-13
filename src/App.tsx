@@ -1,46 +1,63 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import { Button } from './app/components/Button/Button';
-import './App.css'
+import { useState } from "react";
+import "./App.css";
+import ImageFileUpload from "./app/components/ImageFileUpload";
+import ErrorMessage from "./app/components/ErrorMessage";
+import Button from "./app/components/Button";
+
 function App() {
-  const [count, setCount] = useState(0);
+  const [error, setError] = useState<string | null>(null);
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+
+  const handleFileUpload = (file: File) => {
+    if (!file) {
+      setError("Please upload a valid file.");
+      return;
+    }
+    setError(null);
+    setUploadedFile(file);
+    console.log("File uploaded:", file);
+  };
 
   return (
+    <div className="app-container">
+      <header className="app-header">
+        <h1>Rapasu: Social Media Optimizer for Artists</h1>
+      </header>
 
-    <>
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "12px" }}>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} alt="React logo" />
-        </a>
+      <main className="app-main">
+        <section className="upload-section">
+          <h2>Upload Your Artwork</h2>
+          <ImageFileUpload onFileUpload={handleFileUpload} />
+          {uploadedFile && (
+            <p className="file-info">Uploaded File: {uploadedFile.name}</p>
+          )}
+          {error && <ErrorMessage message={error} />}
 
-      </div>
-      <h1>Vite + React</h1><div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+        </section>
 
-        {/* Add the Upload Image button here */}
-        <Button
-          primary={false}
-          label="Upload Image Here"
-          backgroundColor="#dde7ec"
-          size="medium"
-          onClick={() => {
-            console.log('Upload button clicked');
-          }}
-        />
+        <section className="actions-section">
+          <h2>Optimize Your Post</h2>
+          <Button
+            variant="primary"
+            label="Generate Captions"
+            size="medium"
+            onClick={() => {
+              if (!uploadedFile) {
+                setError("Please upload an artwork first.");
+                return;
+              }
+              setError(null);
+              console.log("Generating captions for:", uploadedFile.name);
+            }}
+          />
+        </section>
+      </main>
 
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div><p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      <footer className="app-footer">
+        <p>© 2025 Rapasu. All rights reserved.</p>
+      </footer>
+    </div>
   );
 }
-export default App
+
+export default App;
