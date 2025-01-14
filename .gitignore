@@ -36,3 +36,5 @@ src/app/components/**/*.d.ts
 *.d.ts
 
 storybook-static
+.storybook/*.js
+tsconfig.tsbuildinfo

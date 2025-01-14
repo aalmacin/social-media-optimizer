@@ -1,4 +1,4 @@
-import './Button.css';
+import './TheButton.css';
 
 export interface ButtonProps {
   variant?: 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger';

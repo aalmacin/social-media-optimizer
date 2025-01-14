@@ -1,24 +1,23 @@
 .file-upload-container {
-    @apply flex flex-col items-center gap-4;
-  }
-  
-  .dropzone {
-    @apply border-2 border-dashed border-gray-400 p-4 rounded cursor-pointer;
-  }
-  
-  .dropzone:hover {
-    @apply border-blue-500;
-  }
-  
-  .file-name {
-    @apply text-sm text-gray-500;
-  }
-  
-  .submit-button {
-    @apply bg-blue-500 text-white px-4 py-2 rounded border-none cursor-pointer;
-  }
-  
-  .submit-button:hover {
-    @apply bg-blue-700;
-  }
-  
+  @apply flex flex-col items-center gap-4;
+}
+
+.dropzone {
+  @apply border-2 border-dashed border-gray-400 p-4 rounded cursor-pointer;
+}
+
+.dropzone:hover {
+  @apply border-blue-500;
+}
+
+.file-name {
+  @apply text-sm text-gray-500;
+}
+
+.submit-button {
+  @apply bg-blue-500 text-white px-4 py-2 rounded border-none cursor-pointer;
+}
+
+.submit-button:hover {
+  @apply bg-blue-700;
+}
