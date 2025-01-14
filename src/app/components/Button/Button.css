@@ -1,0 +1,58 @@
+/* Base button styles */
+.button {
+  @apply inline-block cursor-pointer border-0 font-bold leading-none font-sans transition-all duration-200;
+}
+
+/* Shape Variants */
+.button--square {
+  @apply rounded-none;
+  /* Removes rounded corners */
+}
+
+.button--rounded {
+  @apply rounded-full;
+  /* Keeps the rounded shape */
+}
+
+/* Default Variant */
+.button--default {
+  @apply bg-neutral-light text-neutral-dark hover:bg-gray-200 focus:ring-2 focus:ring-gray-300;
+}
+
+/* Primary Variant */
+.button--primary {
+  @apply bg-primary text-white hover:bg-blue-600 focus:ring-2 focus:ring-blue-300;
+}
+
+/* Secondary Variant */
+.button--secondary {
+  @apply bg-secondary text-white hover:bg-green-600 focus:ring-2 focus:ring-green-300;
+}
+
+/* Success Variant */
+.button--success {
+  @apply bg-success text-white hover:bg-green-600 focus:ring-2 focus:ring-green-300;
+}
+
+/* Warning Variant */
+.button--warning {
+  @apply bg-warning text-black hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-300;
+}
+
+/* Danger Variant */
+.button--danger {
+  @apply bg-error text-white hover:bg-red-600 focus:ring-2 focus:ring-red-300;
+}
+
+/* Sizes */
+.button--small {
+  @apply px-4 py-2 text-xs;
+}
+
+.button--medium {
+  @apply px-5 py-2.5 text-sm;
+}
+
+.button--large {
+  @apply px-6 py-3 text-base;
+}

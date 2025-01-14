@@ -1,81 +1,105 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React, { useState } from 'react';
-import { fn } from '@storybook/test';
-
 import { Button } from './Button';
+import React, { useState } from 'react';
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: 'Example/Button',
+  title: 'Components/Button',
   component: Button,
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
   argTypes: {
-    backgroundColor: { control: 'color' },
-    onClick: {
-      description: 'Button click handler',
+    variant: {
+      control: 'select',
+      options: ['default', 'primary', 'secondary', 'success', 'warning', 'danger'],
+    },
+    size: {
+      control: 'select',
+      options: ['small', 'medium', 'large'],
     },
   },
-  args: { onClick: fn<() => void>() },
 } as Meta<typeof Button>;
-
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
+export const Default: Story = {
+  args: {
+    variant: 'default',
+    size: 'medium',
+    label: 'Default Button',
+  },
+};
+
 export const Primary: Story = {
   args: {
-    primary: true,
-    label: 'Button',
-    onClick: fn<() => void>()
-
+    variant: 'primary',
+    size: 'medium',
+    label: 'Primary Button',
   },
 };
 
 export const Secondary: Story = {
   args: {
-    label: 'Button',
-    onClick: fn<() => void>()
+    variant: 'secondary',
+    size: 'medium',
+    label: 'Secondary Button',
+  },
+};
+
+export const Success: Story = {
+  args: {
+    variant: 'success',
+    size: 'medium',
+    label: 'Success Button',
+  },
+};
+
+export const Warning: Story = {
+  args: {
+    variant: 'warning',
+    size: 'medium',
+    label: 'Warning Button',
+  },
+};
+
+export const Danger: Story = {
+  args: {
+    variant: 'danger',
+    size: 'medium',
+    label: 'Danger Button',
   },
 };
 
 export const Large: Story = {
   args: {
+    variant: 'primary',
     size: 'large',
-    label: 'Button',
-    onClick: fn<() => void>()
+    label: 'Large Button',
   },
 };
 
 export const Small: Story = {
   args: {
+    variant: 'primary',
     size: 'small',
-    label: 'Button',
-    onClick: fn<() => void>()
+    label: 'Small Button',
   },
 };
 
-export const UploadImage: Story = {
-  args: {
-    primary: false,
-    label: "Upload Image Here",
-    backgroundColor: "#dde7ec",
-    size: "medium",
-    onClick: fn(() => console.log('Upload button clicked'))
-  }
-};
 
-// Interactive example with state
-export const WithCounter: StoryObj<typeof Button> = {
+export const InteractiveClick: Story = {
   render: (args) => {
-    const [count, setCount] = useState(0);
+    const [clickCount, setClickCount] = useState(0);
+
     return React.createElement(Button, {
       ...args,
-      label: `Clicked ${count} times`,
-      onClick: () => setCount(count + 1)
+      label: `Clicked ${clickCount} times`,
+      onClick: () => setClickCount(clickCount + 1),
     });
-  }
+  },
+  args: {
+    variant: 'primary',
+    size: 'medium',
+  },
 };
