@@ -1,66 +1,54 @@
-import React from 'react';
-import { useFormik } from 'formik';
+import React, { useState } from 'react';
 import { useDropzone, Accept, FileRejection } from 'react-dropzone';
 import './ImageFileUpload.css';
-import Button from '../Button';
 
 type ImageFileUploadProps = {
-  onFileUpload: (file: File) => void;
-  onInvalidFileType?: (message: string) => void;
+  onFileChange: (file: File) => void;
+  onInvalidFileUpload: (message: string) => void;
 };
 
-type FileValue = {
-  name: string;
-  type: string;
-};
-
-const ImageFileUpload: React.FC<ImageFileUploadProps> = ({ onFileUpload, onInvalidFileType }) => {
-  const formik = useFormik({
-    initialValues: {
-      file: null as FileValue | null,
-    },
-    onSubmit: (values) => {
-      if (values.file) {
-        onFileUpload(values.file as unknown as File);
-      }
-    },
-  });
+const ImageFileUpload: React.FC<ImageFileUploadProps> = ({
+  onFileChange,
+  onInvalidFileUpload,
+}) => {
+  const [preview, setPreview] = useState<string | null>(null);
 
   const onDrop = (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
-    if (rejectedFiles.length > 0 && onInvalidFileType) {
-      onInvalidFileType('Invalid file type. Please upload an image file.');
+    if (rejectedFiles.length > 0) {
+      onInvalidFileUpload("Invalid file type. Please upload an image file.");
       return;
     }
 
     if (acceptedFiles.length > 0) {
       const file = acceptedFiles[0];
-      formik.setFieldValue('file', { name: file.name, type: file.type });
+      if (file.size > 5 * 1024 * 1024) {
+        onInvalidFileUpload("File size exceeds 5MB. Please upload a smaller file.");
+        return;
+      }
+
+      onFileChange(file);
+      setPreview(URL.createObjectURL(file));
     }
   };
 
-  const { getRootProps, getInputProps, open } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: { 'image/*': [] } as Accept,
     maxFiles: 1,
-    noClick: false, // Allow clicking on the dropzone to open the file dialog
   });
 
   return (
-    <form onSubmit={formik.handleSubmit} className="file-upload-container">
-      <div
-        {...getRootProps({
-          className: `dropzone ${formik.errors.file ? 'border-red' : 'border-gray'}`,
-        })}
-      >
-        <input {...getInputProps()} />
-        <p>Drag & drop an image here, or click to select one</p>
-      </div>
-      {formik.values.file && (
-        <p className="file-name">Selected file: {formik.values.file.name}</p>
+    <div className="file-upload-container">
+      {preview && (
+        <div className="image-preview">
+          <img src={preview} alt="Preview" className="preview-image" />
+        </div>
       )}
-      <Button label="Choose File" onClick={open} />
-      <Button label="Upload" onClick={formik.handleSubmit} />
-    </form>
+      <div {...getRootProps({ className: 'dropzone border-gray' })}>
+        <input {...getInputProps()} />
+        <p>Drag & drop an image here, or click to select one (only image files under 5MB)</p>
+      </div>
+    </div>
   );
 };
 

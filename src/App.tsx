@@ -1,21 +1,30 @@
 import { useState } from "react";
 import "./App.css";
-import ImageFileUpload from "./app/components/ImageFileUpload";
 import ErrorMessage from "./app/components/ErrorMessage";
 import Button from "./app/components/Button";
+import ImageFileUpload from "./app/components/ImageFileUpload";
 
 function App() {
-  const [error, setError] = useState<string | null>(null);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleFileUpload = (file: File) => {
-    if (!file) {
-      setError("Please upload a valid file.");
+  const handleFileChange = (file: File) => {
+    setUploadedFile(file);
+    setError(null);
+  };
+
+  const handleInvalidFileUpload = (message: string) => {
+    setError(message);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!uploadedFile) {
+      setError("Please upload an image file.");
       return;
     }
     setError(null);
-    setUploadedFile(file);
-    console.log("File uploaded:", file);
+    console.log("Form submitted with file:", uploadedFile.name);
   };
 
   return (
@@ -25,32 +34,41 @@ function App() {
       </header>
 
       <main className="app-main">
-        <section className="upload-section">
-          <h2>Upload Your Artwork</h2>
-          <ImageFileUpload onFileUpload={handleFileUpload} />
-          {uploadedFile && (
-            <p className="file-info">Uploaded File: {uploadedFile.name}</p>
-          )}
-          {error && <ErrorMessage message={error} />}
+        <form onSubmit={handleSubmit} className="file-upload-container">
+          <section className="upload-section">
+            <h2>Upload Your Artwork</h2>
+            <ImageFileUpload
+              onFileChange={handleFileChange}
+              onInvalidFileUpload={handleInvalidFileUpload}
+            />
+            {uploadedFile && (
+              <p className="file-info">Uploaded File: {uploadedFile.name}</p>
+            )}
+            {error && <ErrorMessage message={error} />}
+          </section>
 
-        </section>
-
-        <section className="actions-section">
-          <h2>Optimize Your Post</h2>
-          <Button
-            variant="primary"
-            label="Generate Captions"
-            size="medium"
-            onClick={() => {
-              if (!uploadedFile) {
-                setError("Please upload an artwork first.");
-                return;
-              }
-              setError(null);
-              console.log("Generating captions for:", uploadedFile.name);
-            }}
-          />
-        </section>
+          <section className="actions-section">
+            <h2>Optimize Your Post</h2>
+            <Button
+              variant="primary"
+              label="Generate Captions"
+              size="medium"
+              onClick={() => {
+                if (!uploadedFile) {
+                  setError("Please upload an artwork first.");
+                  return;
+                }
+                setError(null);
+                console.log("Generating captions for:", uploadedFile.name);
+              }}
+            />
+            <Button
+              label="Submit Form"
+              variant="success"
+              size="medium"
+            />
+          </section>
+        </form>
       </main>
 
       <footer className="app-footer">
