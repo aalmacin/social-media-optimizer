@@ -62,11 +62,13 @@ function App() {
                 console.log("Generating captions for:", uploadedFile.name);
               }}
             />
-            <Button
-              label="Submit Form"
-              variant="success"
-              size="medium"
-            />
+            <div className="file-upload-submit">
+              <Button
+                label="Submit Form"
+                variant="success"
+                size="medium"
+              />
+            </div>
           </section>
         </form>
       </main>

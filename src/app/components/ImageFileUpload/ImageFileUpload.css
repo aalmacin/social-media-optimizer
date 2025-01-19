@@ -14,13 +14,6 @@
   @apply text-sm text-gray-500;
 }
 
-.submit-button {
-  @apply bg-blue-500 text-white px-4 py-2 rounded border-none cursor-pointer;
-}
-
-.submit-button:hover {
-  @apply bg-blue-700;
-}
 
 .image-preview {
   margin-top: 1rem;
