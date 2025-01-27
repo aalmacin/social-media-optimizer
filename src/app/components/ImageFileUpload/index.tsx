@@ -1,3 +1,3 @@
-import SingleFileUpload from "./ImageFileUpload.js";
+import ImageFileUpload from "./ImageFileUpload";
 
-export default SingleFileUpload;
+export default ImageFileUpload;

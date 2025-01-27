@@ -14,8 +14,11 @@ const ImageFileUpload: React.FC<ImageFileUploadProps> = ({
   const [preview, setPreview] = useState<string | null>(null);
 
   const onDrop = (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
+    // Accepted files: 
+    // image/*
+    // ex. image/png, image/jpeg, image/webp
     if (rejectedFiles.length > 0) {
-      onInvalidFileUpload("Invalid file type. Please upload an image file.");
+      onInvalidFileUpload("Invalid file type. Please upload an image file. Ex. png, jpg, jpeg, webp");
       return;
     }
 
@@ -45,7 +48,7 @@ const ImageFileUpload: React.FC<ImageFileUploadProps> = ({
         </div>
       )}
       <div {...getRootProps({ className: 'dropzone border-gray' })}>
-        <input {...getInputProps()} />
+        <input data-testid="imagefileupload-dropzone" {...getInputProps()} />
         <p>Drag & drop an image here, or click to select one (only image files under 5MB)</p>
       </div>
     </div>
